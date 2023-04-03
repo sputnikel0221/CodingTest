@@ -23,7 +23,7 @@ int main()
 
 void DFS(int count)
 {
-    // 2. 목적지인가?
+    // 1. 목적지인가?
     if (count == M)
     {
         for (int i = 0; i < M; i++)
@@ -33,18 +33,18 @@ void DFS(int count)
         cout << "\n";
     }
 
-    // 3. 연결된 곳을 순회
+    // 2. 연결된 곳을 순회
     for (int i = 1; i <= N; i++)
     {
-        // 4. 갈 수 있는가?
+        // 3. 갈 수 있는가?
         if (!visited[i])
         {
 
-            // 1. 체크인
+            // 5. 체크인
             ans[count] = i;
             visited[i] = true;
 
-            // 5. 갈 수 있으면 간다.
+            // 4. 갈 수 있으면 간다.
             DFS(count + 1);
 
             // 6. 체크아웃
