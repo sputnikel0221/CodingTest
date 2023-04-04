@@ -1,47 +1,17 @@
 #include <iostream>
+#include <queue>
 using namespace std;
 
 int visited[100][100];
 int maze[100][100];
+int dist[100][100]; // 각 칸까지의 최소거리를 적어놓음
+
 int N, M;
 
 int x_dir[4] = {-1, 1, 0, 0};
 int y_dir[4] = {0, 0, -1, 1};
 
-int min_value = 10000; //min으로 이름짓지 말것.. 예약어임
-
-// x는 세로, y는 가로
-void DFS(int x, int y, int count)
-{
-
-    // 1. 목표에 도달했나?
-    if (x == N - 1 && y == M - 1)
-    {
-        if(count < min_value){
-            min_value = count;
-        }
-        return;
-    }
-
-    // 2. 연결된 곳을 순회
-    for (int i = 0; i < 4; i++)
-    {
-        if (0 <= x + x_dir[i] && x + x_dir[i] < N &&
-            0 <= y + y_dir[i] && y + y_dir[i] < M){
-                //3. 연결되었고, 실제로 갈 수 있는가?
-                if(maze[x + x_dir[i]][y + y_dir[i]]==1 && !visited[x + x_dir[i]][y + y_dir[i]]){
-                    //4.체크인
-                    visited[x + x_dir[i]][y + y_dir[i]] = true;
-
-                    //5. 갈 수 있다면 간다
-                    DFS(x + x_dir[i], y + y_dir[i], count+1);
-
-                    //6.체크아웃
-                    visited[x + x_dir[i]][y + y_dir[i]] = false;
-                }
-            }
-    }
-}
+int min_value = 10000; // min으로 이름짓지 말것.. 예약어임
 
 int main()
 {
@@ -75,8 +45,36 @@ int main()
     // }
 
     //* 시작
-    DFS(0, 0, 1); //시작칸도 포함
+    queue<pair<int, int>> path;
+    path.push({0, 0});
+    visited[0][0] = true;
+    dist[0][0] = 1;
 
-    cout << min_value;
-    return 0;
+    //*BFS
+    while (!path.empty())
+    {
+        // 1. Queue에서 꺼내옴
+        int x = path.front().first;
+        int y = path.front().second;
+        path.pop();
+
+        // 2. 연결된 곳을 순회
+        for (int i = 0; i < 4; i++)
+        {
+            if (0 <= x + x_dir[i] && x + x_dir[i] < N &&
+                0 <= y + y_dir[i] && y + y_dir[i] < M)
+            {
+                // 3. 연결되었고, 실제로 갈 수 있는가?
+                if (maze[x + x_dir[i]][y + y_dir[i]] == 1 && !visited[x + x_dir[i]][y + y_dir[i]])
+                {
+                    // 4.체크인
+                    visited[x + x_dir[i]][y + y_dir[i]] = true;
+                    // 5. Queue에다 넣음
+                    path.push(make_pair(x + x_dir[i], y + y_dir[i]));
+                    dist[x + x_dir[i]][y + y_dir[i]] = dist[x][y] + 1;
+                }
+            }
+        }
+    }
+    cout << dist[N-1][M-1];
 }
