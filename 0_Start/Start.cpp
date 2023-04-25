@@ -1,14 +1,17 @@
 #include <iostream>
 
-static int s = 150;
+float func(int num)
+{
+	printf("doit");
+    return num*0.1f;
+}
 
-int main(){
-    int a = 19;
-    int b = 21;
-    int c = a+b;
+int main()
+{
+	float (*p) (int);
+    p = func;
+    p(100);
+    printf("%f", p(100));
 
-    int N[] = {1,2,3,4,5};
-
-    printf("GGGGGGG");
     return 0;
 }
