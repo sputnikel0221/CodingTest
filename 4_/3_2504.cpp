@@ -9,7 +9,7 @@ int main(){
     cin >> s;
 
     int sum=0;
-    int tmpSum[s.length()/2] = {0, }; //계층은 최대 length/2개
+    int tmpSum[s.length()] = {0, }; //계층은 최대 length/2개
     int rank=0; //계층
     // [ 1식[ 2식[ 3식[ 4식 ]]]]
 
