@@ -1,4 +1,5 @@
 #include <iostream>
+#include<vector>
 #include <queue>
 #include <cstring>
 
@@ -13,18 +14,20 @@ int main()
     int N;
     cin >> N;
 
-    bool connection[N+1][N+1]; //1~N인덱스 담을 수 있음
-    int visited[N+1] = {
-        0,
-    };
-    memset(connection, false, sizeof(connection));
+    //bool connection[N+1][N+1]; //1~N인덱스 담을 수 있음
+    //memset(connection, false, sizeof(connection));
+    
+    vector<int> connction[N+1];
+    int visited[N+1] = {0, };
+   
 
     int from, to;
     for (int i = 0; i < N-1; i++) //Tree라서 N-1`개`의 연결이 존재
     {
-        cin >> from >> to;
-        connection[from][to] = 1;
-        connection[to][from] = 1;
+        cin >> from; 
+        cin >> to;
+        connction[from].push_back(to);
+        connction[to].push_back(from);
     }
 
     // BFS
@@ -38,7 +41,8 @@ int main()
 
         for (int i = 1; i < N + 1; i++) //1~N 인덱스
         {
-            if (connection[parent][i] && visited[i] == 0)
+            //if (connection[parent][i] && visited[i] == 0)
+            if(connction[parent][i] && visited[i] == 0)
             {
                 childNode.push(i);
                 visited[i] = parent;
