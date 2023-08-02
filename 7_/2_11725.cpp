@@ -1,5 +1,5 @@
 #include <iostream>
-#include<vector>
+#include <vector>
 #include <queue>
 #include <cstring>
 
@@ -17,7 +17,7 @@ int main()
     //bool connection[N+1][N+1]; //1~N인덱스 담을 수 있음
     //memset(connection, false, sizeof(connection));
     
-    vector<int> connction[N+1];
+    vector<int> connection[N+1];
     int visited[N+1] = {0, };
    
 
@@ -26,8 +26,8 @@ int main()
     {
         cin >> from; 
         cin >> to;
-        connction[from].push_back(to);
-        connction[to].push_back(from);
+        connection[from].push_back(to);
+        connection[to].push_back(from);
     }
 
     // BFS
@@ -38,14 +38,14 @@ int main()
     {
         int parent = childNode.front();
         childNode.pop();
-
-        for (int i = 1; i < N + 1; i++) //1~N 인덱스
+        
+        for(int i=0;i<connection[parent].size();i++)
         {
-            //if (connection[parent][i] && visited[i] == 0)
-            if(connction[parent][i] && visited[i] == 0)
+            int child = connection[parent][i];
+            if(!visited[child])
             {
-                childNode.push(i);
-                visited[i] = parent;
+                visited[child] = parent;
+                childNode.push(child);
             }
         }
     }
