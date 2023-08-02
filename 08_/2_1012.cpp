@@ -22,8 +22,6 @@ int main()
 
     for (int t = 0; t < T; t++)
     {
-        cout << "initialize"
-             << "\n";
         // 초기화
         cin >> M >> N >> K; // M가로 N세로
         memset(map, 0, sizeof(map));
@@ -60,6 +58,7 @@ void BFS(int x, int y)
 {
     queue<pair<int, int>> q;
     q.push(make_pair(x, y));
+    map[y][x] = 0;
 
     // 해당 좌표에 대한 BFS진행
     while (!q.empty())
@@ -69,7 +68,6 @@ void BFS(int x, int y)
 
         q.pop();
 
-        map[y][x] = 0;
 
         // 4방향에 대해 갈 수 있는 노드를 체크
         for (int i = 0; i < 4; i++)
@@ -77,15 +75,14 @@ void BFS(int x, int y)
             int cx = x + dx[i];
             int cy = y + dy[i];
 
-            if (cx < 0 || cx >= N || cy < 0 || cy >= M)
+            if (cx < 0 || cx >= M || cy < 0 || cy >= N)
             {
                 continue;
             }
 
             if (map[cy][cx] == 1)
             {
-                cout << "mapcxcy : "
-                     << "x :" << cx << " y :" << cy << map[cy][cx] << "\n";
+                map[cy][cx] = 0;
                 q.push(make_pair(cx, cy));
             }
         }
