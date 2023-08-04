@@ -28,12 +28,6 @@ int main()
         cin >> s[i];
     }
 
-    for (int i = 0; i < N; i++)
-    {
-        cout << s[i] << " \n";
-    }
-
-
     // A아스키 = 65 / 총 26개의 알파벳
     alphabet[s[0][0] - 65] = 1;
     DFS(0, 0, 1);

@@ -30,7 +30,7 @@ int main()
             if (map[i][j] == 1)
             {
                 nextNode.push(make_pair(j, i));
-                cout << " tomato  x:" << i << " y" << j;
+                //cout << " tomato  x:" << i << " y" << j;
             }
             else if (map[i][j] == -1)
             {
