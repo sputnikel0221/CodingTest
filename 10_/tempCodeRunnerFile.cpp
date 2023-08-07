@@ -1,104 +1,88 @@
 #include <iostream>
 #include <queue>
-#include <vector>
 #include <cstring>
 
 using namespace std;
+bool visited[1000][1000][2]; // 마지막은 벽을 부시는 능력을 썼는지
+int map[1000][1000];
 
-int d[4] = {-3, 3, -1, 1}; // 4방향
+int dx[4] = {0, -1, 0, 1};
+int dy[4] = {1, 0, -1, 0};
 
-vector<string> visitedStage; // visited
-string clearStage = "123456780";
+int map_X, map_Y;
 
 int main()
 {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    string start;
+    cin >> map_X >> map_Y;
+    memset(visited, false, sizeof(visited));
+    memset(map, 0, sizeof(map));
 
-    // 입력
-    for (int i = 0; i < 3; i++)
+    string s;
+    for (int i = 0; i < map_X; i++)
     {
-        for (int j = 0; j < 3; j++)
+        cin >> s;
+        for (int j = 0; j < map_Y; j++)
         {
-            char num;
-            cin >> num;
-            start.push_back(num);
+            map[i][j] = s[j] - '0';
         }
     }
 
-    queue<pair<string, int>> nextStage;
+    queue<pair<pair<int, int>, pair<int, int>>> nextNode;
+    visited[0][0][1] = true;
+    nextNode.push({{0, 0}, {1, 1}});
 
-    // visited 이후 push
-    visitedStage.push_back(start);
-    nextStage.push({start, 0});
-
-    while (!nextStage.empty())
+    while (!nextNode.empty())
     {
-        string thisStage = nextStage.front().first;
-        int count = nextStage.front().second;
+        int x = nextNode.front().first.first;
+        int y = nextNode.front().first.second;
+        int count = nextNode.front().second.first;
+        int remainAbility = nextNode.front().second.second;
 
-        nextStage.pop();
+        nextNode.pop();
 
-        int zeroIndex;
+        /*
+        cout << "\n\n[thisNode]\n";
+        cout << "x : " << x << "\n";
+        cout << "y : " << y << "\n";
+        cout << "count : " << count << "\n";
+        cout << "remain : " << remainAbility << "\n";
+        */
 
-        // 정렬된 상태에 도달한다면, 종료
-        if (thisStage == clearStage)
+        if (x == map_X - 1 && y == map_Y - 1)
         {
             cout << count;
             return 0;
         }
 
-        // 0의 인덱스를 찾음
-        for (int i = 0; i < 9; i++)
-        {
-            if (thisStage[i] == '0')
-            {
-                zeroIndex = i;
-            }
-        }
-
-        // 0의 위치로부터 4방향을 봄, 갈 수 있다면 간다.
-        // (+visited로 같은 상태가 아니면)
         for (int i = 0; i < 4; i++)
         {
-            int c = zeroIndex + d[i];
-            if (c < 0 || c >= 9) // 위아래
-            {
-                continue;
-            }
-            else if (((zeroIndex + 1) % 3 == 1) && i == 2) // 왼쪽벽인데 왼쪽으로
-            {
-                continue;
-            }
-            else if (((zeroIndex + 1) % 3 == 0) && i == 3)
+            int cx = x + dx[i];
+            int cy = y + dy[i];
+
+            if (cx < 0 || cx >= map_X || cy < 0 || cy >= map_Y)
             {
                 continue;
             }
             else
             {
-                string tmpStage = thisStage;
-                char tmp;
-                tmp = tmpStage[c];         // 갈 수 있는 곳을 저장
-                tmpStage[c] = '0';         // 갈 수 있는 곳을 실제로 감
-                tmpStage[zeroIndex] = tmp; // 서로 값을 바꾸는 것
-                // 그러면 지금 tmpStage는 실제로 이동한 상태
-
-                // 해당 상태가 벡터에 없는 처음보는 상태인지 전 벡터 순회
-                bool existStage = false;
-                for (int n = 0; n < visitedStage.size(); n++)
+                if (map[cx][cy] == 0)
                 {
-                    if (visitedStage[n] == tmpStage)
+                    if (!visited[cx][cy][remainAbility])
                     {
-                        existStage = true;
+                        visited[cx][cy][remainAbility] = true;
+                        nextNode.push({{cx, cy}, {count + 1, remainAbility}});
                     }
                 }
-                // 처음보는 상태가 맞다면, 방문추가 및 큐에추가
-                if (!existStage)
+                else if (map[cx][cy] == 1)
                 {
-                    visitedStage.push_back(tmpStage);
-                    nextStage.push({tmpStage, count + 1});
+                    if (remainAbility > 0)
+                    {
+                        visited[cx][cy][remainAbility - 1] = true;
+                        nextNode.push({{cx, cy}, {count + 1, remainAbility - 1}});
+                    }
                 }
             }
         }

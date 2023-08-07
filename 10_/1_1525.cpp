@@ -86,9 +86,6 @@ int main()
                 tmpStage[zeroIndex] = tmp; // 서로 값을 바꾸는 것
                 // 그러면 지금 tmpStage는 실제로 이동한 상태
 
-                // 해당 상태가 벡터에 없는 처음보는 상태인지 전 벡터 순회
-                bool existStage = false;
-
                 // set의 find는 해당 원소가 없을시, end를 반환함
                 if (visitedStage.find(tmpStage) == visitedStage.end())
                 {
