@@ -44,7 +44,7 @@ int main()
         {
             for (int j = 1; j <= N; j++)
             {
-                d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
+                d[i][j] = min(d[i][j], d[i][k] + d[k][j]); // 단순 연산 및 대입
             }
         }
     }
