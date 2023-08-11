@@ -41,7 +41,8 @@ int main()
     {
         for (int j = 1; j <= N; j++)
         {
-            if (connection[i][j] || connection[j][i])
+            // 일방통행이라 다른 점에 도착할 수 없지만, 도착당해서 연결되는 상황도 존재.
+            if (connection[i][j] || connection[j][i])   
             {
                 conSum[i]++;
             }

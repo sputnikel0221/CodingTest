@@ -89,7 +89,7 @@ int main()
                 path.push_back(idx);    // 지나온 정점을 역추적하여 vector에 담는다
                 idx = passIdx[idx][j];
             }
-            path.push_back(j);
+            path.push_back(j);          // 종료점을 마지막으로 담는다.
             cout << path.size() << " ";
 
             for(auto x : path)
