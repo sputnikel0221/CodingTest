@@ -49,11 +49,11 @@ int main()
             {
                 tmpAlphabet[str[i] - 65]--;
             }
-            
+
             // minus / plus 요소 찾기
             for (int i = 0; i < 26; i++)
             {
-                if(tmpAlphabet[i] > 1 || tmpAlphabet[i] < -1)
+                if (tmpAlphabet[i] > 1 || tmpAlphabet[i] < -1)
                 {
                     wrongFlag = true;
                     break;
@@ -69,37 +69,37 @@ int main()
                 }
             }
 
-            if(wrongFlag)
+            if (wrongFlag)
             {
                 continue;
             }
 
-            // 입력값이 더 큰 경우
+            // 입력값이 더 큰 경우 : 제거
             if (str.length() - slength == 1 && minus == 1 && plus == 0)
             {
-                 cout << "(DEL)"  << str << "\n";
+                // cout << "(DEL)"  << str << "\n";
                 count++;
             }
 
-            // 입력값이 같은 경우
+            // 입력값이 같은 경우 : 완전히 같다
             else if (str.length() - slength == 0 && minus == 0 && plus == 0)
             {
 
-                 cout << "(SAM)" << str << "\n";
+                // cout << "(SAM)" << str << "\n";
                 count++;
             }
-            // 입력값이 같은 경우 2
+            // 입력값이 같은 경우 2 : 수정
             else if (str.length() - slength == 0 && minus == 1 && plus == 1)
             {
-                 cout << "(MOD)" << str << "\n";
+                // cout << "(MOD)" << str << "\n";
                 count++;
             }
 
-            // 입력값이 더 작은 경우
+            // 입력값이 더 작은 경우 : 추가
             else if (str.length() - slength == -1 && minus == 0 && plus == 1)
             {
 
-                 cout << "(ADD))" << str << "\n";
+                // cout << "(ADD))" << str << "\n";
                 count++;
             }
         }
