@@ -16,7 +16,7 @@ int main()
     map<string, int> wordMap;                     // str, count
     vector<pair<int, pair<int, string>>> wordVec; // (count, (size, str))
 
-    // 중복되는 입력을 하지 않고, count를 계산하여 Map에 저장
+    // 1 중복되는 입력을 하지 않고, count를 계산하여 Map에 저장
     while (N--)
     {
         string s;
@@ -36,12 +36,13 @@ int main()
         }
     }
 
-    // 정렬하기 위해 벡터에 넣음
+    // 2 정렬하기 위해 벡터에 넣음
     for (auto w : wordMap)
     {
         wordVec.push_back({w.second, {w.first.size(), w.first}});
     }
 
+    // 핵심 코드
     sort(wordVec.begin(), wordVec.end(), [](pair<int, pair<int, string>> a, pair<int, pair<int, string>> b)
     {
 
@@ -55,7 +56,7 @@ int main()
     );
 
 
-    // 출력
+    // 3 출력
     for (auto str : wordVec)
     {
         cout << str.second.second <<"\n";
