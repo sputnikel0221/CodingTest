@@ -55,6 +55,7 @@ int main(){
                 badWord = true;
             }
         }
+        
         //뒤 확인
         for(int i=0;i<back.size();i++)
         {
