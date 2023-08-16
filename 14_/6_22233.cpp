@@ -27,6 +27,8 @@ int main()
         cin >> s;
 
         vector<string> keyword;
+
+        // 1 데이터 파싱
         string tmp = "";
         for (int i = 0; i < s.size(); i++)
         {
@@ -42,6 +44,7 @@ int main()
             }
         }
 
+        // 2 키워드 있는지 검색 및 삭제
         for (auto key : keyword)
         {
             if(memo.find(key)!=memo.end())
@@ -50,6 +53,7 @@ int main()
             }
         }
         
+        // 3 출력
         cout << memo.size() << "\n";
     }
 

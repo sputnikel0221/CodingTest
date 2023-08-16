@@ -1,17 +1,15 @@
 #include <iostream>
+using namespace std;
 
-float func(int num)
-{
-	printf("doit");
-    return num*0.1f;
-}
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
-int main()
-{
-	float (*p) (int);
-    p = func;
-    p(100);
-    printf("%f", p(100));
-
-    return 0;
+    int n;
+    cin >> n;
+	int realArray[n] = {0, };
+    
+    cout << "hi";
+    
+    return 0;   
 }
