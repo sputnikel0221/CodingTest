@@ -8,6 +8,7 @@ int main(){
     string s;
     cin >> s;
 
-    cout << s;
+    cout << s.length();
 
+    return 0;   
 }
