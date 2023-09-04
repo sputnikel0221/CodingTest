@@ -40,7 +40,7 @@ int main(){
         //for(int i=3; i<=n;i++)
         for(int i=3; i<=n-3;i++)
         {
-            if(result[n-i])
+            if(result[i] && result[n-i])
             {
                 cout << n << " = " << i << " + " << n-i << "\n";
                 break;
