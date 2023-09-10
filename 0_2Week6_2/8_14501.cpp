@@ -1,42 +1,47 @@
 #include <iostream>
 using namespace std;
 
-int dp[17] = {0, };
-int T[17]={0,}, C[17]={0,};
+    // 초기화 및 선언
+    int t[16] = {
+        0,
+    };
+    int p[16] = {
+        0,
+    };
+    int d[16] = {
+        0,
+    };
 
-int main(){
+int main()
+{
     ios::sync_with_stdio(0);
     cin.tie(0);
 
     int N;
     cin >> N;
 
-    for(int i=1;i<=N;i++)
+
+    // 입력값
+    for (int i = 1; i <= N; i++)
     {
-        cin >> T[i];
-        cin >> C[i];
+        cin >> t[i];
+        cin >> p[i];
     }
 
-    for(int i=N+1; i>=1; i--)
-    {
-        int t=0;
-        for(int j=i-1; j>=1;j--)
+    // 핵심
+    for (int i = N; i >= 1; i--)
+    {   
+        if(i+t[i] > N+1)    // 시간 상 할 수 없는 일이라면,
         {
-            t++;
-            if(t==T[j])
-            {
-                dp[i] = max(dp[i], dp[j]+C[j]);
-            }
+            d[i] = d[i+1];  // 다음날의 일을 하도록 함.
+        }
+        else
+        {
+            d[i] = max(d[i+1], p[i] + d[i+t[i]]);   
+            // 다음날의 일과, 다음시간의 일을 더한 값 중 큰 값을 현재 값으로 둠.
         }
     }
 
-    int result = 0;
-    for(int i=1;i<=N+1;i++)
-    {
-        result = max(result, dp[i]);
-    }
-
-    cout << result;
-
-    return 0;   
+    cout << d[1];
+    return 0;
 }
